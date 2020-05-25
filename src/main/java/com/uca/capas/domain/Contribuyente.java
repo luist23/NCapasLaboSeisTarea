@@ -44,7 +44,6 @@ public class Contribuyente {
 	
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="c_importancia")
-	@NotEmpty(message = "Este campo no puede estar vacio")
 	private Importancia importancia;
 
 	public Contribuyente() {

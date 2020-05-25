@@ -1,4 +1,6 @@
 package com.uca.capas.controller;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -7,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,16 +36,16 @@ public class MainController {
 	public ModelAndView listado() {
 		ModelAndView mav = new ModelAndView();
 		
-		List<Estudiante> estudiantes = null;
+		List<Contribuyente> contribuyentes = null;
 		try {
 			
-			estudiantes = estudianteDAO.findAll();
+			contribuyentes = contribuyenteDAO.findAll();
 			
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		mav.addObject("estudiantes", estudiantes);
+		mav.addObject("contribuyentes", contribuyentes);
 		mav.setViewName("listado");
 		
 		return mav;
@@ -59,31 +62,34 @@ public class MainController {
 		}
 		mav.addObject("ListImportancia", importancias);
 		mav.addObject("contribuyente", new Contribuyente());
-		mav.addObject("importancia", new Importancia());
 		mav.setViewName("index");
 		return mav;
 	}
 	
-	@RequestMapping("/saveContribuyente")
+	@PostMapping("/saveContribuyente")
 	public ModelAndView formProducto(@Valid @ModelAttribute Contribuyente contribuyente, BindingResult result) {
 		
 		ModelAndView mav = new ModelAndView();
 		
+	    Date date = new Date();  
+		
 		if(!result.hasErrors()) {
 			try {
-				
+				contribuyente.setFecha(date);
 				contribuyenteDAO.insert(contribuyente);
+				mav.setViewName("exito");
 				
 			}catch (Exception e) {
 				e.printStackTrace();
+				mav.setViewName("index");
 			}
 			
 			contribuyente = new Contribuyente();
-			mav.addObject("estudiante", contribuyente);
+			mav.addObject("contribuyente", contribuyente);
 			
 		}
 		
-		mav.setViewName("index");
+		
 		
 		return mav;
 		
@@ -114,12 +120,12 @@ public class MainController {
 		
 	}
 	
-	@RequestMapping("/deleteEstudiante")
+	@RequestMapping("/deleteContribuyente")
 	public String delete(@RequestParam Integer codigo) {
-		Estudiante estudiante = estudianteDAO.findOne(codigo);
+		Contribuyente estudiante = contribuyenteDAO.findOne(codigo);
 			try {
 				
-				estudianteDAO.delete(estudiante);
+				contribuyenteDAO.delete(estudiante);
 				
 			}catch (Exception e) {
 				e.printStackTrace();

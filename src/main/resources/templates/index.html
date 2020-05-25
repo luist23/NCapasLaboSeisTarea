@@ -35,7 +35,7 @@
 			<form class="contact100-form validate-form" th:action="@{/saveContribuyente}" th:object="${contribuyente}" method="post">
 				<span class="contact100-form-title"> Nuevo Contribuyente </span>
 				
-				<select th:field="*{importancia.codigo}">
+				<select th:field="*{importancia.codigo}" >
 					<option th:each ="impo: ${ListImportancia}" th:value="${impo.codigo}"
 							th:text ="${impo.importancia}">
 					</option>

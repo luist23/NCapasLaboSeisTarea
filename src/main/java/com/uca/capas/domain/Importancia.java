@@ -18,13 +18,14 @@ import javax.validation.constraints.Size;
 public class Importancia {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@NotEmpty(message="Este campo no puede quedar vacio")
 	@Column(name="c_importancia")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer codigo;
 	
+	@Size(max = 30,message="El nombre no debe tener mas de 30 caracteres")
+	@NotEmpty(message="Este campo no puede quedar vacio")
 	@Column(name="s_importancia")
-	@Size(message = "El nombre no debe tener mas de 30 caracteres", max = 30)
-	@NotEmpty(message = "Este campo no puede estar vacio")
 	private String importancia;
 
 	@OneToMany(mappedBy="importancia", fetch = FetchType.EAGER)

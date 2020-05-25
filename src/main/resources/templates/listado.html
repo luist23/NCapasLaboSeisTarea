@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Lista Estudiantes</title>
+<title>Lista Contribuyentes</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->
@@ -35,30 +35,29 @@
 			<th scope="col">Codigo</th>
 			<th scope="col">Nombre</th>
 			<th scope="col">Apellido</th>
-			<th scope="col">Carne</th>
-			<th scope="col">Carrera</th>
+			<th scope="col">nit</th>
+			<th scope="col">importancia</th>
+			<th scope="col">fecha ingresso</th>
 		</thead>
-		<th:block th:each="e, row: ${estudiantes}">
+		<th:block th:each="e, row: ${contribuyentes}">
 			<tr>
 				
 					<td class="bg-primary" th:text="${e.codigo}"/>
 					<td class="bg-primary" th:text="${e.nombre}"/>
 					<td class="bg-primary" th:text="${e.apellido}"/>
-					<td class="bg-primary" th:text="${e.carne}"/>
-					<td class="bg-primary" th:text="${e.carrera}"/>
-					<td class="bg-primary">
-					
-					</td>
+					<td class="bg-primary" th:text="${e.nit}"/>
+					<td class="bg-primary" th:text="${e.importancia.importancia}"/>
+					<td class="bg-primary" th:text="${#dates.format(contribuyente.fecha, 'dd-MMM-yyyy')}"/>
 				
 			</tr>
 		</th:block>
 	</table>
 	
-	<form class="contact100-form" method="post" th:action="@{/deleteEstudiante}">
+	<form class="contact100-form" method="post" th:action="@{/deleteContribuyente}">
 	<div class="wrap-contact100">
-					<span class="contact100-form-title"> Eliminar Estudiante </span>
-					<input type="text"  placeholder="Codigo del Estudiante" id="codigo" name="codigo">
-					<input type="submit" class="btn btn-outline-light" value="eliminar estudiante">
+					<span class="contact100-form-title"> Eliminar Contribuyente </span>
+					<input type="text"  placeholder="Codigo del contribuyente" id="codigo" name="codigo">
+					<input type="submit" class="btn btn-outline-light" value="eliminar contribuyente">
 					</div>
 	</form>
 	
