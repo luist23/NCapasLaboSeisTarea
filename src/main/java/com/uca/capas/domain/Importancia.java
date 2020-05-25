@@ -1,10 +1,14 @@
 package com.uca.capas.domain;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
@@ -21,8 +25,12 @@ public class Importancia {
 	@Column(name="s_importancia")
 	@Size(message = "El nombre no debe tener mas de 30 caracteres", max = 30)
 	@NotEmpty(message = "Este campo no puede estar vacio")
-	private String nombre;
+	private String importancia;
 
+	@OneToMany(mappedBy="importancia", fetch = FetchType.EAGER)
+	private List<Contribuyente> contribuyentes;
+	
+	
 	
 	public Importancia() {
 	}
@@ -35,14 +43,19 @@ public class Importancia {
 		this.codigo = codigo;
 	}
 
-	public String getNombre() {
-		return nombre;
+	public String getImportancia() {
+		return importancia;
 	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setImportancia(String importancia) {
+		this.importancia = importancia;
 	}
 	
+	public List<Contribuyente> getContribuyentes() {
+		return contribuyentes;
+	}
+	public void setContribuyentes(List<Contribuyente> contribuyentes) {
+		this.contribuyentes = contribuyentes;
+	}
 	
 	
 }

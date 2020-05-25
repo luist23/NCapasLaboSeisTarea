@@ -4,9 +4,12 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
@@ -20,10 +23,6 @@ public class Contribuyente {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="c_contribuyente")
 	private Integer codigo;
-	
-	@Column(name="c_importancia")
-	@NotEmpty(message = "Este campo no puede estar vacio")
-	private Integer importancia;
 	
 	@Column(name="s_nombre")
 	@Size(message = "El nombre no debe tener mas de 30 caracteres", max = 30)
@@ -42,6 +41,11 @@ public class Contribuyente {
 	
 	@Column(name="f_fecha_ingreso")
 	private Date fecha;
+	
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="c_importancia")
+	@NotEmpty(message = "Este campo no puede estar vacio")
+	private Importancia importancia;
 
 	public Contribuyente() {
 	}
@@ -52,14 +56,6 @@ public class Contribuyente {
 
 	public void setCodigo(Integer codigo) {
 		this.codigo = codigo;
-	}
-
-	public Integer getImportancia() {
-		return importancia;
-	}
-
-	public void setImportancia(Integer importancia) {
-		this.importancia = importancia;
 	}
 
 	public String getNombre() {
@@ -95,6 +91,13 @@ public class Contribuyente {
 	}
 	
 	
+	public Importancia getImportancia() {
+		return importancia;
+	}
+
+	public void setImportancia(Importancia importancia) {
+		this.importancia = importancia;
+	}
 	
 	
 	

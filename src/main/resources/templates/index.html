@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Nuevo Estudiante</title>
+<title>Nuevo Contribuyente</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->
@@ -32,11 +32,15 @@
 
 	<div class="container-contact100" style="background-image: url('images/bg-01.jpg');">
 		<div class="wrap-contact100">
-			<form class="contact100-form validate-form" method="post"
-				th:action="@{/formEstudiante}" th:object="${estudiante}">
-				<span class="contact100-form-title"> Nuevo Estudiante </span>
+			<form class="contact100-form validate-form" th:action="@{/saveContribuyente}" th:object="${contribuyente}" method="post">
+				<span class="contact100-form-title"> Nuevo Contribuyente </span>
 				
-				
+				<select th:field="*{importancia.codigo}">
+					<option th:each ="impo: ${ListImportancia}" th:value="${impo.codigo}"
+							th:text ="${impo.importancia}">
+					</option>
+				</select>
+					
 				<div class="wrap-input100 rs1-wrap-input100 validate-input fullsize"
 					data-validate="Name is required">
 					<span class="label-input100" th:errors="*{nombre}"
@@ -54,23 +58,15 @@
 				</div>
 				
 				<div class="wrap-input100 rs1-wrap-input100 validate-input fullsize"
-					data-validate="carne is required">
-					<span class="label-input100" th:errors="*{carne}"
+					data-validate="nit is required">
+					<span class="label-input100" th:errors="*{nit}"
 						style="color: #FF0000; font-size: 12px"></span> <input
-						class="input100" th:field="*{carne}" type="number" name="carne"
-						placeholder="carne">
+						class="input100" th:field="*{nit}" type="text" name="nit"
+						placeholder="nit">
 				</div>
 				
-				<div class="wrap-input100 rs1-wrap-input100 validate-input fullsize"
-					data-validate="Carrera is required">
-					<span class="label-input100" th:errors="*{carrera}"
-						style="color: #FF0000; font-size: 12px"></span> <input
-						class="input100" th:field="*{carrera}" type="text" name="carrera"
-						placeholder="Carrera">
-				</div>
-			
-				<input type="submit" class="btn btn-outline-light" value="Agregar estudiante">
-				<a href="/listado" class="btn btn-outline-light" >Ver todos los estudiantes</a>
+				<input type="submit" class="btn btn-outline-light" value="Guardar">
+				<a href="/listado" class="btn btn-outline-light" >Ver contribuyentes</a>
 	</form>
 	
 	</div>

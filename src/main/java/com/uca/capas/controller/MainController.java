@@ -11,14 +11,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.uca.capas.dao.ContribuyenteDAO;
 import com.uca.capas.dao.EstudianteDAO;
+import com.uca.capas.dao.ImportanciaDAO;
+import com.uca.capas.domain.Contribuyente;
 import com.uca.capas.domain.Estudiante;
+import com.uca.capas.domain.Importancia;
 
 @Controller
 public class MainController {
 	
 	@Autowired
 	private EstudianteDAO estudianteDAO;
+	@Autowired
+	private ImportanciaDAO importanciaDAO;
+	@Autowired
+	private ContribuyenteDAO contribuyenteDAO;
 	
 	@RequestMapping("/listado")
 	public ModelAndView listado() {
@@ -42,13 +51,42 @@ public class MainController {
 	@RequestMapping("/inicio")
 	public ModelAndView inicio() {
 		ModelAndView mav = new ModelAndView();
+		List<Importancia> importancias = null;
+		try {
+			importancias = importanciaDAO.findAll();
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		mav.addObject("ListImportancia", importancias);
+		mav.addObject("contribuyente", new Contribuyente());
+		mav.addObject("importancia", new Importancia());
+		mav.setViewName("index");
+		return mav;
+	}
+	
+	@RequestMapping("/saveContribuyente")
+	public ModelAndView formProducto(@Valid @ModelAttribute Contribuyente contribuyente, BindingResult result) {
 		
-		Estudiante estudiante = new Estudiante();
+		ModelAndView mav = new ModelAndView();
 		
-		mav.addObject("estudiante", estudiante);
+		if(!result.hasErrors()) {
+			try {
+				
+				contribuyenteDAO.insert(contribuyente);
+				
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			contribuyente = new Contribuyente();
+			mav.addObject("estudiante", contribuyente);
+			
+		}
+		
 		mav.setViewName("index");
 		
 		return mav;
+		
 	}
 	
 	@RequestMapping("/formEstudiante")
