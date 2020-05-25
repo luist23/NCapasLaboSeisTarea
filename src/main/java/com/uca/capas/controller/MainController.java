@@ -75,5 +75,20 @@ public class MainController {
 		return mav;
 		
 	}
+	
+	@RequestMapping("/deleteEstudiante")
+	public String delete(@RequestParam Integer codigo) {
+		Estudiante estudiante = estudianteDAO.findOne(codigo);
+			try {
+				
+				estudianteDAO.delete(estudiante);
+				
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		return "redirect:/listado";
+		
+	}
 
 }

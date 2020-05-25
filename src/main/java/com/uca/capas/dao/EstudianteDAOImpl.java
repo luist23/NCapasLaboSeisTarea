@@ -43,6 +43,13 @@ public class EstudianteDAOImpl implements EstudianteDAO {
 		// TODO Auto-generated method stub
 		entityManager.remove(estudiante);	
 	}
+
+
+	@Override
+	public Estudiante findOne(Integer codigo) throws DataAccessException {
+		
+		return entityManager.find(Estudiante.class, codigo);
+	}
 	
 	
 	
