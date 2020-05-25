@@ -21,16 +21,17 @@ import com.uca.capas.dao.ImportanciaDAO;
 import com.uca.capas.domain.Contribuyente;
 import com.uca.capas.domain.Estudiante;
 import com.uca.capas.domain.Importancia;
+import com.uca.capas.service.ContribuyenteService;
+import com.uca.capas.service.ImportanciaService;
 
 @Controller
 public class MainController {
 	
 	@Autowired
-	private EstudianteDAO estudianteDAO;
+	ContribuyenteService contribuyenteService;
+	
 	@Autowired
-	private ImportanciaDAO importanciaDAO;
-	@Autowired
-	private ContribuyenteDAO contribuyenteDAO;
+	ImportanciaService importanciaService;
 	
 	@RequestMapping("/listado")
 	public ModelAndView listado() {
@@ -39,7 +40,7 @@ public class MainController {
 		List<Contribuyente> contribuyentes = null;
 		try {
 			
-			contribuyentes = contribuyenteDAO.findAll();
+			contribuyentes = contribuyenteService.findAll();
 			
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -56,7 +57,7 @@ public class MainController {
 		ModelAndView mav = new ModelAndView();
 		List<Importancia> importancias = null;
 		try {
-			importancias = importanciaDAO.findAll();
+			importancias = importanciaService.findAll();
 		}catch (Exception e){
 			e.printStackTrace();
 		}
@@ -76,7 +77,8 @@ public class MainController {
 		if(!result.hasErrors()) {
 			try {
 				contribuyente.setFecha(date);
-				contribuyenteDAO.insert(contribuyente);
+				System.out.print(contribuyente);
+				contribuyenteService.insert(contribuyente);
 				mav.setViewName("exito");
 				
 			}catch (Exception e) {
@@ -95,7 +97,7 @@ public class MainController {
 		
 	}
 	
-	@RequestMapping("/formEstudiante")
+	/*@RequestMapping("/formEstudiante")
 	public ModelAndView formProducto(@Valid @ModelAttribute Estudiante estudiante, BindingResult result) {
 		
 		ModelAndView mav = new ModelAndView();
@@ -118,14 +120,14 @@ public class MainController {
 		
 		return mav;
 		
-	}
+	}*/
 	
 	@RequestMapping("/deleteContribuyente")
 	public String delete(@RequestParam Integer codigo) {
-		Contribuyente estudiante = contribuyenteDAO.findOne(codigo);
+		Contribuyente estudiante = contribuyenteService.findOne(codigo);
 			try {
 				
-				contribuyenteDAO.delete(estudiante);
+				contribuyenteService.delete(estudiante);
 				
 			}catch (Exception e) {
 				e.printStackTrace();
