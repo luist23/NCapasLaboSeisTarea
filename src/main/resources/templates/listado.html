@@ -47,7 +47,7 @@
 					<td class="bg-primary" th:text="${e.apellido}"/>
 					<td class="bg-primary" th:text="${e.nit}"/>
 					<td class="bg-primary" th:text="${e.importancia.importancia}"/>
-					<td class="bg-primary" th:text="${#dates.format(contribuyente.fecha, 'dd-MMM-yyyy')}"/>
+					<td class="bg-primary" th:text="${#dates.format(e.fecha, 'dd-MMM-yyyy')}"/>
 				
 			</tr>
 		</th:block>
