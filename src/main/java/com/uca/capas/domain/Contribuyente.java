@@ -42,6 +42,61 @@ public class Contribuyente {
 	
 	@Column(name="f_fecha_ingreso")
 	private Date fecha;
+
+	public Contribuyente() {
+	}
+
+	public Integer getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(Integer codigo) {
+		this.codigo = codigo;
+	}
+
+	public Integer getImportancia() {
+		return importancia;
+	}
+
+	public void setImportancia(Integer importancia) {
+		this.importancia = importancia;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getApellido() {
+		return apellido;
+	}
+
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
+	}
+
+	public String getNit() {
+		return nit;
+	}
+
+	public void setNit(String nit) {
+		this.nit = nit;
+	}
+
+	public Date getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
+	}
+	
+	
+	
+	
 	
 
 }
